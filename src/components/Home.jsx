@@ -1,11 +1,24 @@
 import axios from "axios";
 
+function CategoryList(props) {
+  return (
+    <ul>
+    {props.pr_items.map((i, index) =>
+      <li key={index + 1}>{i.API}</li>
+    )}
+    </ul>
+  );
+}
+
 export default class ComponentWithState extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    API_URL: "https://raw.githubusercontent.com/toddmotto/public-apis/master/json/entries.json",
+      API_URL: "https://raw.githubusercontent.com/toddmotto/public-apis/master/json/entries.json",
       BACKUP_URL: "./entries_offline.json",
+
+      apiListCache: [], // default unfiltered items
+      apiTotalCount: ""
     };
 
     // binders
@@ -20,11 +33,14 @@ export default class ComponentWithState extends React.Component {
   getApiData(url) {
       axios.get(url)
         .then((response) => {
-          //   this.apiTotalCount = response.data.count;
+            this.apiTotalCount = response.data.count;
           //     this.apiListCache = response.data.entries;
           //     this.apiListFiltered = this.apiListCache;
           //     this.activatePager(this.apiListCache);
-          console.log(response.data.entries);
+          
+          this.setState({
+            apiListCache: response.data.entries
+          }); 
         })
         .then(() => {
 
@@ -52,7 +68,10 @@ export default class ComponentWithState extends React.Component {
 
   render() {
     return (
-      <div onClick={this.method1}></div>
+      <div>
+      {this.apiTotalCount}
+      <CategoryList pr_items={this.state.apiListCache} />
+      </div>
     );
   }
 }
