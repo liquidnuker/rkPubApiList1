@@ -2,6 +2,7 @@
 notes.txt
 *.glue
 temp
+entries_offline.json
 
 ### OSX ###
 *.DS_Store
