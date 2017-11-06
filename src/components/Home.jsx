@@ -6,34 +6,7 @@ import {search_fuse} from "../js/search_fuse.js";
 import Paginate from "../js/vendor/Paginate.js";
 import {store} from "../js/store.js";
 
-function ApiList(props) {
-  return (
-    <table class="col-xs-12 apilist_table">
-    <tbody aria-live="assertive" aria-atomic="true" aria-describedby="api_status">
-      {props.pr_items.map((i) =>
-        <tr v-for="i in prApiList" class="row">
-        <td class="col-xs-12 col-sm-7">
-          <p class="apiname">{ i.API }</p>
-          <summary>
-          <p class="apidesc">{ i.Description }</p>
-          </summary>
-          <a class="apilink" href="i.Link">{ i.Link }</a>
-        </td>
-        <td class="col-xs-12 col-sm-2">
-          <p>{ i.Category }</p>
-        </td>
-        <td class="col-xs-12 col-sm-2">
-          <p>{ i.Auth }</p>
-        </td>
-        <td class="col-xs-12 col-sm-1 https">
-          {i.HTTPS}
-        </td>
-      </tr>
-      )}
-    </tbody>
-  </table>
-  );
-}
+import ApiList_table from "./ApiList_table.jsx";
 
 export default class ComponentWithState extends React.Component {
   constructor(props) {
@@ -135,7 +108,7 @@ export default class ComponentWithState extends React.Component {
       <br />
       <br />
 
-      <ApiList pr_items={this.state.apiList} />
+      <ApiList_table pr_items={this.state.apiList} />
       </div>
     );
   }
