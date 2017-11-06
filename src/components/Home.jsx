@@ -8,13 +8,24 @@ import {store} from "../js/store.js";
 
 import ApiList_table from "./ApiList_table.jsx";
 
+function CategoryList(props) {
+  return (
+    <ul>
+    {props.pr_categoryTypes.map((i) =>
+      <li>{i.catName} {i.catLength}</li>
+    )}
+    </ul>
+  );
+}
+
 export default class ComponentWithState extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      API_URL: "https://raw.githubusercontent.com/toddmotto/public-apis/master/json/entries.json",
-      BACKUP_URL: "./entries_offline.json",
 
+    this.API_URL ="https://raw.githubusercontent.com/toddmotto/public-apis/master/json/entries.json";
+    this.BACKUP_URL ="./entries_offline.json";
+
+    this.state = {
       apiListCache: [], // default unfiltered items
       apiTotalCount: "",
       apiListFiltered: "", // filtered items
@@ -47,7 +58,7 @@ export default class ComponentWithState extends React.Component {
 
   // lifecycle hooks
   componentDidMount() {
-    this.getApiData(this.state.BACKUP_URL);
+    this.getApiData(this.BACKUP_URL);
   }
   
   // methods
@@ -62,7 +73,7 @@ export default class ComponentWithState extends React.Component {
           this.activatePager(this.state.apiListCache);
         })
         .then(() => {
-
+          this.addFiltersList(this.state.apiListCache);
         })
         .catch((error) => {
           if (error.response) {
@@ -97,6 +108,33 @@ export default class ComponentWithState extends React.Component {
       }));
     }
 
+    addFiltersList(arr) {
+      // for authTypes
+      this.state.authTypes = arr_extractUnique(arr, "Auth");
+      console.log(this.state.authTypes);
+      // this.toggleAuthTypeCheckbox(true);
+
+      // for categoryTypes
+      let temp = arr_extractUnique(arr, "Category");
+      let temp2 = [];
+      // filter to get length of each item then push
+      temp.map((i) => {
+        let l = arr_filter(this.state.apiListCache, "Category", i);
+        
+        temp2.push({
+            catName: i,
+            catLength: l.length
+          });
+        });
+
+      this.setState(prevState => ({
+        categoryTypes: temp2
+      }));
+      
+      temp = null;
+      temp2 = null;
+    }
+
   render() {
     const apiList = this.state.apiList;
     return (
@@ -108,7 +146,14 @@ export default class ComponentWithState extends React.Component {
       <br />
       <br />
 
-      <ApiList_table pr_items={this.state.apiList} />
+      <div className="row">
+        <div className="col-sm-3">
+         <CategoryList pr_categoryTypes={this.state.categoryTypes} /> 
+        </div>
+        <div className="col-sm-9">
+          <ApiList_table pr_items={this.state.apiList} />
+        </div>
+      </div>
       </div>
     );
   }
