@@ -1,12 +1,37 @@
 import axios from "axios";
+import {arr_filter} from "../js/arr_filter.js";
+import {arr_extractUnique} from "../js/arr_extractUnique.js";
+import {arr_sortValue} from "../js/arr_sortValue.js";
+import {search_fuse} from "../js/search_fuse.js";
+import Paginate from "../js/vendor/Paginate.js";
+import {store} from "../js/store.js";
 
-function CategoryList(props) {
+function ApiList(props) {
   return (
-    <ul>
-    {props.pr_items.map((i, index) =>
-      <li key={index + 1}>{i.API}</li>
-    )}
-    </ul>
+    <table class="col-xs-12 apilist_table">
+    <tbody aria-live="assertive" aria-atomic="true" aria-describedby="api_status">
+      {props.pr_items.map((i) =>
+        <tr v-for="i in prApiList" class="row">
+        <td class="col-xs-12 col-sm-7">
+          <p class="apiname">{ i.API }</p>
+          <summary>
+          <p class="apidesc">{ i.Description }</p>
+          </summary>
+          <a class="apilink" href="i.Link">{ i.Link }</a>
+        </td>
+        <td class="col-xs-12 col-sm-2">
+          <p>{ i.Category }</p>
+        </td>
+        <td class="col-xs-12 col-sm-2">
+          <p>{ i.Auth }</p>
+        </td>
+        <td class="col-xs-12 col-sm-1 https">
+          {i.HTTPS}
+        </td>
+      </tr>
+      )}
+    </tbody>
+  </table>
   );
 }
 
@@ -18,7 +43,30 @@ export default class ComponentWithState extends React.Component {
       BACKUP_URL: "./entries_offline.json",
 
       apiListCache: [], // default unfiltered items
-      apiTotalCount: ""
+      apiTotalCount: "",
+      apiListFiltered: "", // filtered items
+      apiList: [], // displayed/paginated items
+
+      categoryTypes: [],
+      currentCategory: "All",
+      authTypes: "",
+      authTypeselected: [], // checkbox
+      https: "",
+
+      // paginator
+      pager: null,
+      currentPage: "",
+      totalPages: "",
+      pagerButtons: true,
+      perPage: 20,
+      perPageItems: [10, 20, 40, 60, 100],
+
+      sortAsc: true,
+
+      // messages
+      status: {
+        search: "status.search"
+      }
     };
 
     // binders
@@ -33,14 +81,12 @@ export default class ComponentWithState extends React.Component {
   getApiData(url) {
       axios.get(url)
         .then((response) => {
-            this.apiTotalCount = response.data.count;
-          //     this.apiListCache = response.data.entries;
-          //     this.apiListFiltered = this.apiListCache;
-          //     this.activatePager(this.apiListCache);
-          
           this.setState({
-            apiListCache: response.data.entries
+            apiTotalCount: response.data.count,
+            apiListCache: response.data.entries,
+            apiListFiltered: this.apiListCache,            
           }); 
+          this.activatePager(this.state.apiListCache);
         })
         .then(() => {
 
@@ -66,11 +112,30 @@ export default class ComponentWithState extends React.Component {
         });
     }
 
+    activatePager(data) {
+      this.pager = null;
+      this.pager = new Paginate(data, this.state.perPage);
+      
+      this.setState(prevState => ({
+        apiList: this.pager.page(0),
+        currentPage: this.pager.currentPage,
+        totalPages: this.pager.totalPages,
+        pagerButtons: true
+      }));
+    }
+
   render() {
+    const apiList = this.state.apiList;
     return (
       <div>
-      {this.apiTotalCount}
-      <CategoryList pr_items={this.state.apiListCache} />
+      {this.state.apiList.length}
+      <br />
+      {this.state.totalPages} {this.state.currentPage}
+
+      <br />
+      <br />
+
+      <ApiList pr_items={this.state.apiList} />
       </div>
     );
   }
