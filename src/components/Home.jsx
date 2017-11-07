@@ -9,6 +9,38 @@ import {store} from "../js/store.js";
 import ApiList_table from "./ApiList_table.jsx";
 import CategoryList from "./CategoryList.jsx";
 
+class AuthFilter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      // todo
+      // selected: []
+    };
+
+    // binders
+  }
+
+  // methods  
+    
+  render() {
+    return (
+      <ul>
+      {this.props.pr_items.map((i, index) =>
+        <li>
+        <input type="checkbox" />
+        <label tabIndex="0">{ i }</label>
+        </li>
+      )}
+      <hr role="separator" aria-expanded="true" aria-orientation="vertical" />
+      <li>
+        <input type="checkbox" id="checkbox" />
+        <label tabIndex="0" htmlFor="checkbox">HTTPS only</label>
+      </li>
+      </ul>      
+    );
+  }
+}
+
 
 export default class ComponentWithState extends React.Component {
   constructor(props) {
@@ -25,7 +57,7 @@ export default class ComponentWithState extends React.Component {
 
       categoryTypes: [],
       currentCategory: "All",
-      authTypes: "",
+      authTypes: [],
       authTypeselected: [], // checkbox
       https: "",
 
@@ -142,6 +174,8 @@ export default class ComponentWithState extends React.Component {
 
       <br />
       <br />
+      <AuthFilter pr_items={this.state.authTypes} />
+
 
       <div className="row">
         <div className="col-sm-3">
