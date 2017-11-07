@@ -8,14 +8,20 @@ import {store} from "../js/store.js";
 
 import ApiList_table from "./ApiList_table.jsx";
 
-function CategoryList(props) {
-  return (
-    <ul>
-    {props.pr_categoryTypes.map((i) =>
-      <li>{i.catName} {i.catLength}</li>
-    )}
-    </ul>
-  );
+class CategoryList extends React.Component {
+  send(param) {
+    this.props.pr_data(param);
+  }
+
+  render() {
+    return (
+      <ul>
+      {this.props.pr_categoryTypes.map((i, index) =>
+        <li key={index + 1} onClick={() => { this.send(i.catName)}}>{i.catName} {i.catLength}</li>
+        )}
+      </ul>
+      );
+  }
 }
 
 export default class ComponentWithState extends React.Component {
@@ -54,6 +60,7 @@ export default class ComponentWithState extends React.Component {
     };
 
     // binders
+    this.getData = this.getData.bind(this);
   }
 
   // lifecycle hooks
@@ -135,6 +142,10 @@ export default class ComponentWithState extends React.Component {
       temp2 = null;
     }
 
+    getData(val) {
+      console.log(val);
+    }
+
   render() {
     const apiList = this.state.apiList;
     return (
@@ -148,7 +159,8 @@ export default class ComponentWithState extends React.Component {
 
       <div className="row">
         <div className="col-sm-3">
-         <CategoryList pr_categoryTypes={this.state.categoryTypes} /> 
+         <CategoryList pr_categoryTypes={this.state.categoryTypes} 
+         pr_data={this.getData} /> 
         </div>
         <div className="col-sm-9">
           <ApiList_table pr_items={this.state.apiList} />

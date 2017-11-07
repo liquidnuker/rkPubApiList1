@@ -1,8 +1,28 @@
-export default function ApiList_table(props) {
-  return (
-    <table class="col-xs-12 apilist_table">
+export default class ApiList_table extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      
+    };
+
+    // binders
+    
+  }
+
+  // lifecycle hooks
+  
+  // methods
+  method1() {
+    this.setState(prevState => ({
+      property1: store.state
+    }));
+  }
+
+  render() {
+    return (
+      <table class="col-xs-12 apilist_table">
     <tbody aria-live="assertive" aria-atomic="true" aria-describedby="api_status">
-      {props.pr_items.map((i) =>
+      {this.props.pr_items.map((i) =>
         <tr v-for="i in prApiList" class="row">
         <td class="col-xs-12 col-sm-7">
           <p class="apiname">{ i.API }</p>
@@ -24,5 +44,6 @@ export default function ApiList_table(props) {
       )}
     </tbody>
   </table>
-  );
+    );
+  }
 }
