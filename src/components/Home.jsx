@@ -13,8 +13,7 @@ class AuthFilter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // todo
-      // selected: []
+      
     };
 
     // binders
@@ -27,7 +26,7 @@ class AuthFilter extends React.Component {
       <ul>
       {this.props.pr_items.map((i, index) =>
         <li>
-        <input type="checkbox" />
+        <input type="checkbox" id={i} value={i} onChange={this.props.pr_onChange} />
         <label tabIndex="0">{ i }</label>
         </li>
       )}
@@ -58,7 +57,7 @@ export default class ComponentWithState extends React.Component {
       categoryTypes: [],
       currentCategory: "All",
       authTypes: [],
-      authTypeselected: [], // checkbox
+      authTypeSelected: [], // checkbox
       https: "",
 
       // paginator
@@ -79,6 +78,7 @@ export default class ComponentWithState extends React.Component {
 
     // binders
     this.getData = this.getData.bind(this);
+    this.toggleSelected = this.toggleSelected.bind(this);
   }
 
   // lifecycle hooks
@@ -164,6 +164,25 @@ export default class ComponentWithState extends React.Component {
       console.log(val);
     }
 
+    toggleSelected(event) {
+    let selectedItems = this.state.authTypeSelected;
+    let index;
+
+    if (event.target.checked) {
+      selectedItems.push(event.target.value)
+    } else {
+      index = selectedItems.indexOf(event.target.value)
+      selectedItems.splice(index, 1)
+    }
+
+    this.setState(prevState => ({
+      authTypeSelected: selectedItems 
+    }));
+
+    // ok
+    console.log(this.state.authTypeSelected);    
+  }
+
   render() {
     const apiList = this.state.apiList;
     return (
@@ -171,10 +190,12 @@ export default class ComponentWithState extends React.Component {
       {this.state.apiList.length}
       <br />
       {this.state.totalPages} {this.state.currentPage}
-
+      <br />
+      
       <br />
       <br />
-      <AuthFilter pr_items={this.state.authTypes} />
+      <AuthFilter pr_items={this.state.authTypes} 
+      pr_onChange={this.toggleSelected} />
 
 
       <div className="row">
