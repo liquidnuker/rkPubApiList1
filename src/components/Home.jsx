@@ -27,7 +27,7 @@ class AuthFilter extends React.Component {
       )}
       -----
       <li>
-        <input type="checkbox" id="checkbox" />
+        <input type="checkbox" id="checkbox" checked={this.props.pr_https} />
         <label tabIndex="0" htmlFor="checkbox">HTTPS only</label>
       </li>
       </ul>      
@@ -82,141 +82,139 @@ export default class ComponentWithState extends React.Component {
   }
   
   // methods
-  getApiData(url) {
-      axios.get(url)
-        .then((response) => {
-          this.setState({
-            apiTotalCount: response.data.count,
-            apiListCache: response.data.entries,
-            apiListFiltered: this.apiListCache,            
-          }); 
-          this.activatePager(this.state.apiListCache);
-        })
-        .then(() => {
-          this.addFiltersList(this.state.apiListCache);
-        })
-        .catch((error) => {
-          if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
+getApiData(url) {
+  axios.get(url)
+    .then((response) => {
+      this.setState({
+        apiTotalCount: response.data.count,
+        apiListCache: response.data.entries,
+        apiListFiltered: this.apiListCache,
+      });
+      this.activatePager(this.state.apiListCache);
+    })
+    .then(() => {
+      this.addFiltersList(this.state.apiListCache);
+    })
+    .catch((error) => {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
 
-          } else if (error.request) {
-            // The request was made but no response was received
-            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-            // http.ClientRequest in node.js
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
 
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log("Error", error.message);
-          }
-          console.log(error.config);
-        });
-    }
-
-    activatePager(data) {
-      this.pager = null;
-      this.pager = new Paginate(data, this.state.perPage);
-      
-      this.setState(prevState => ({
-        apiList: this.pager.page(0),
-        currentPage: this.pager.currentPage,
-        totalPages: this.pager.totalPages,
-        pagerButtons: true
-      }));
-    }
-
-    addFiltersList(arr) {
-      // for authTypes
-      let authTemp = arr_extractUnique(arr, "Auth");
-      let authTemp2 = [];
-
-      for (let i in authTemp) {
-        authTemp2.push({
-          authName: authTemp[i],
-          checked: true
-        });
-      }
-
-      this.setState(prevState => ({
-        authTypes: authTemp2
-      }));
-
-      authTemp = null;
-      authTemp2 = null;
-
-      this.toggleAuthTypeCheckbox(true);
-
-      // for categoryTypes
-      let temp = arr_extractUnique(arr, "Category");
-      let temp2 = [];
-      // filter to get length of each item then push
-      temp.map((i) => {
-        let l = arr_filter(this.state.apiListCache, "Category", i);
-        
-        temp2.push({
-            catName: i,
-            catLength: l.length
-          });
-        });
-
-      this.setState(prevState => ({
-        categoryTypes: temp2
-      }));
-      
-      temp = null;
-      temp2 = null;
-    }
-
-    getData(val) {
-      console.log(val);
-    }
-
-    toggleAuthTypeCheckbox(checked) {
-      let authTypes = this.state.authTypes;
-      let authTypeSelected = this.state.authTypeSelected;
-
-      if (checked) {
-        authTypeSelected = [];
-        for (let i in authTypes) {
-          authTypeSelected.push(authTypes[i].authName);
-        }
       } else {
-        authTypeSelected = [];
+        // Something happened in setting up the request that triggered an Error
+        console.log("Error", error.message);
       }
+      console.log(error.config);
+    });
+}
 
-      this.setState(prevState => ({
-        authTypeSelected: authTypeSelected
-      }));
+activatePager(data) {
+  this.pager = null;
+  this.pager = new Paginate(data, this.state.perPage);
 
-      // uncheck https checkbox when showing all items
-      // this.https = false;
-    }
+  this.setState(prevState => ({
+    apiList: this.pager.page(0),
+    currentPage: this.pager.currentPage,
+    totalPages: this.pager.totalPages,
+    pagerButtons: true
+  }));
+}
 
-    toggleSelected(index) {
-    // ok 
-    // console.log(index);
-    // complete toggleAuthTypeCheckbox before this
+addFiltersList(arr) {
+  // for authTypes
+  let authTemp = arr_extractUnique(arr, "Auth");
+  let authTemp2 = [];
 
-    let authTypes = this.state.authTypes;
-    let selectedItems = [];
-    
-    // if (authTypes[index].checked) {
-    //   selectedItems.push(authTypes[index].authName)
-    // } else {
-    //   index2 = authTypes[index].checked;
-    //   selectedItems.splice(index2, 1)
-    // }
-
-    // this.setState(prevState => ({
-    //   authTypeSelected: selectedItems 
-    // }));
-
-    // ok
-    console.log(this.state.authTypeSelected);    
+  for (let i in authTemp) {
+    authTemp2.push({
+      authName: authTemp[i],
+      checked: true
+    });
   }
+
+  this.setState(prevState => ({
+    authTypes: authTemp2
+  }));
+
+  authTemp = null;
+  authTemp2 = null;
+
+  this.toggleAuthTypeCheckbox(true);
+
+  // for categoryTypes
+  let temp = arr_extractUnique(arr, "Category");
+  let temp2 = [];
+  // filter to get length of each item then push
+  temp.map((i) => {
+    let l = arr_filter(this.state.apiListCache, "Category", i);
+
+    temp2.push({
+      catName: i,
+      catLength: l.length
+    });
+  });
+
+  this.setState(prevState => ({
+    categoryTypes: temp2
+  }));
+
+  temp = null;
+  temp2 = null;
+}
+
+getData(val) {
+  console.log(val);
+}
+
+toggleAuthTypeCheckbox(checked) {
+  let authTypes = this.state.authTypes;
+  let authTypeSelected = this.state.authTypeSelected;
+
+  if (checked) {
+    authTypeSelected = [];
+    for (let i in authTypes) {
+      authTypeSelected.push(authTypes[i].authName);
+    }
+  } else {
+    authTypeSelected = [];
+  }
+
+  this.setState(prevState => ({
+    authTypeSelected: authTypeSelected,
+    // uncheck https checkbox when showing all items
+    https: false
+  }));
+}
+
+toggleSelected(index) {
+  let authTypes = this.state.authTypes;
+  let selectedItems = this.state.authTypeSelected;
+
+  if (authTypes[index].checked) {
+    let indexToSplice = selectedItems.indexOf(authTypes[index].authName)
+    selectedItems.splice(indexToSplice, 1);
+    authTypes[index].checked = false;
+  } else {
+    selectedItems.push(authTypes[index].authName);
+    authTypes[index].checked = true;
+  }
+
+  this.setState(prevState => ({
+    authTypes: authTypes, // for checked attr
+    authTypeSelected: selectedItems
+  }));
+
+  // ok
+  console.log(this.state.authTypeSelected);
+}
 
   render() {
     const apiList = this.state.apiList;
@@ -229,9 +227,9 @@ export default class ComponentWithState extends React.Component {
       
       <br />
       <br />
-      selected: [{this.state.authTypeSelected}]
       <AuthFilter pr_items={this.state.authTypes} 
-      pr_data={this.toggleSelected} />
+      pr_data={this.toggleSelected} 
+      pr_https={this.state.https} />
 
 
       <div className="row">
