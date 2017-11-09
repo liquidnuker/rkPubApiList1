@@ -10,27 +10,22 @@ import ApiList_table from "./ApiList_table.jsx";
 import CategoryList from "./CategoryList.jsx";
 
 class AuthFilter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      
-    };
-
-    // binders
-  }
-
-  // methods  
+  // methods
+  send(param) {
+    this.props.pr_data(param);
+  }  
     
   render() {
     return (
       <ul>
       {this.props.pr_items.map((i, index) =>
         <li>
-        <input type="checkbox" id={i} value={i} onChange={this.props.pr_onChange} />
-        <label tabIndex="0">{ i }</label>
+        <input type="checkbox" value={i.authName} checked={i.checked} 
+        onClick={() => { this.send(index)}} />
+        <label tabIndex="0">{ i.authName }</label>
         </li>
       )}
-      <hr role="separator" aria-expanded="true" aria-orientation="vertical" />
+      -----
       <li>
         <input type="checkbox" id="checkbox" />
         <label tabIndex="0" htmlFor="checkbox">HTTPS only</label>
@@ -135,9 +130,24 @@ export default class ComponentWithState extends React.Component {
 
     addFiltersList(arr) {
       // for authTypes
-      this.state.authTypes = arr_extractUnique(arr, "Auth");
-      console.log(this.state.authTypes);
-      // this.toggleAuthTypeCheckbox(true);
+      let authTemp = arr_extractUnique(arr, "Auth");
+      let authTemp2 = [];
+
+      for (let i in authTemp) {
+        authTemp2.push({
+          authName: authTemp[i],
+          checked: true
+        });
+      }
+
+      this.setState(prevState => ({
+        authTypes: authTemp2
+      }));
+
+      authTemp = null;
+      authTemp2 = null;
+
+      this.toggleAuthTypeCheckbox(true);
 
       // for categoryTypes
       let temp = arr_extractUnique(arr, "Category");
@@ -164,20 +174,45 @@ export default class ComponentWithState extends React.Component {
       console.log(val);
     }
 
-    toggleSelected(event) {
-    let selectedItems = this.state.authTypeSelected;
-    let index;
+    toggleAuthTypeCheckbox(checked) {
+      let authTypes = this.state.authTypes;
+      let authTypeSelected = this.state.authTypeSelected;
 
-    if (event.target.checked) {
-      selectedItems.push(event.target.value)
-    } else {
-      index = selectedItems.indexOf(event.target.value)
-      selectedItems.splice(index, 1)
+      if (checked) {
+        authTypeSelected = [];
+        for (let i in authTypes) {
+          authTypeSelected.push(authTypes[i].authName);
+        }
+      } else {
+        authTypeSelected = [];
+      }
+
+      this.setState(prevState => ({
+        authTypeSelected: authTypeSelected
+      }));
+
+      // uncheck https checkbox when showing all items
+      // this.https = false;
     }
 
-    this.setState(prevState => ({
-      authTypeSelected: selectedItems 
-    }));
+    toggleSelected(index) {
+    // ok 
+    // console.log(index);
+    // complete toggleAuthTypeCheckbox before this
+
+    let authTypes = this.state.authTypes;
+    let selectedItems = [];
+    
+    // if (authTypes[index].checked) {
+    //   selectedItems.push(authTypes[index].authName)
+    // } else {
+    //   index2 = authTypes[index].checked;
+    //   selectedItems.splice(index2, 1)
+    // }
+
+    // this.setState(prevState => ({
+    //   authTypeSelected: selectedItems 
+    // }));
 
     // ok
     console.log(this.state.authTypeSelected);    
@@ -194,8 +229,9 @@ export default class ComponentWithState extends React.Component {
       
       <br />
       <br />
+      selected: [{this.state.authTypeSelected}]
       <AuthFilter pr_items={this.state.authTypes} 
-      pr_onChange={this.toggleSelected} />
+      pr_data={this.toggleSelected} />
 
 
       <div className="row">
