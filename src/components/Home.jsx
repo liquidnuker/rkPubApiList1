@@ -25,14 +25,19 @@ class AuthFilter extends React.Component {
         <label tabIndex="0">{ i.authName }</label>
         </li>
       )}
-      -----
-      <li>
-        <input type="checkbox" id="checkbox" checked={this.props.pr_https} />
-        <label tabIndex="0" htmlFor="checkbox">HTTPS only</label>
-      </li>
       </ul>      
     );
   }
+}
+
+function HttpsToggle(props) {
+  return (
+    <div>
+    <input type="checkbox" id="checkbox" checked={props.pr_https} 
+    onClick={() => { props.pr_toggleHttps(props.pr_https)}}/>
+    <label tabIndex="0" htmlFor="checkbox">HTTPS only</label>
+    </div>
+  );
 }
 
 
@@ -74,6 +79,7 @@ export default class ComponentWithState extends React.Component {
     // binders
     this.getData = this.getData.bind(this);
     this.toggleSelected = this.toggleSelected.bind(this);
+    this.toggleHttps = this.toggleHttps.bind(this);
   }
 
   // lifecycle hooks
@@ -194,6 +200,13 @@ toggleAuthTypeCheckbox(checked) {
   }));
 }
 
+toggleHttps(checked) {
+  checked = !checked;
+  this.setState(prevState => ({
+    https: checked
+  }));
+}
+
 toggleSelected(index) {
   let authTypes = this.state.authTypes;
   let selectedItems = this.state.authTypeSelected;
@@ -228,8 +241,11 @@ toggleSelected(index) {
       <br />
       <br />
       <AuthFilter pr_items={this.state.authTypes} 
-      pr_data={this.toggleSelected} 
-      pr_https={this.state.https} />
+      pr_data={this.toggleSelected} />
+
+      <HttpsToggle 
+      pr_https={this.state.https}
+      pr_toggleHttps={this.toggleHttps} />
 
 
       <div className="row">
