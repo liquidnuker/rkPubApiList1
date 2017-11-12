@@ -30,14 +30,27 @@ class AuthFilter extends React.Component {
   }
 }
 
-function HttpsToggle(props) {
-  return (
-    <div>
-    <input type="checkbox" id="checkbox" checked={props.pr_https} 
-    onClick={() => { props.pr_toggleHttps(props.pr_https)}}/>
-    <label tabIndex="0" htmlFor="checkbox">HTTPS only</label>
-    </div>
-  );
+class HttpsToggle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    };
+    // binders    
+  }
+  // hooks
+  
+  // methods
+  
+  render() {
+    return (
+      <div>
+      <input type="checkbox" id="checkbox" checked={this.props.pr_https} 
+      onClick={() => { this.props.pr_toggleHttps(this.props.pr_https)}}/>
+      <label tabIndex="0" htmlFor="checkbox">HTTPS only</label>
+      </div>
+    );
+  }
 }
 
 
@@ -77,8 +90,8 @@ export default class ComponentWithState extends React.Component {
     };
 
     // binders
-    this.getData = this.getData.bind(this);
-    this.toggleSelected = this.toggleSelected.bind(this);
+    this.filterCategory = this.filterCategory.bind(this);
+    this.toggleAuthType = this.toggleAuthType.bind(this);
     this.toggleHttps = this.toggleHttps.bind(this);
   }
 
@@ -176,10 +189,6 @@ addFiltersList(arr) {
   temp2 = null;
 }
 
-getData(val) {
-  console.log(val);
-}
-
 toggleAuthTypeCheckbox(checked) {
   let authTypes = this.state.authTypes;
   let authTypeSelected = this.state.authTypeSelected;
@@ -207,7 +216,12 @@ toggleHttps(checked) {
   }));
 }
 
-toggleSelected(index) {
+filterCategory(category) {
+  this.state.currentCategory = category;
+  this.filterAuthType();
+}
+
+toggleAuthType(index) {
   let authTypes = this.state.authTypes;
   let selectedItems = this.state.authTypeSelected;
 
@@ -226,11 +240,52 @@ toggleSelected(index) {
   }));
 
   // ok
-  console.log(this.state.authTypeSelected);
+  // console.log(this.state.authTypeSelected);
+  this.filterAuthType();
+}
+
+filterAuthType() {
+  let apiListFiltered = this.state.apiListFiltered;
+  // this.status.search = "";
+  let categoryTemp;
+
+  if (this.state.currentCategory !== "All") {
+    categoryTemp = arr_filter(this.state.apiListCache, "Category", this.state.currentCategory);
+  } else {
+    // to filter authTypes from default items
+    categoryTemp = this.state.apiListCache;
+  }
+
+  // authType checkbox
+  let authTemp = [];
+  this.state.authTypeSelected.map((i) => {
+    // get items of each authTypeSelected
+    let t2 = arr_filter(categoryTemp, "Auth", i);
+    authTemp = authTemp.concat(t2);
+    t2 = null;
+  });
+
+  // HTTPS checkbox
+  if (this.state.https) {
+    let hTemp = arr_filter(authTemp, "HTTPS", this.state.https);
+    apiListFiltered = hTemp;
+    hTemp = null;
+  } else {
+    apiListFiltered = authTemp;
+  }
+
+  if (authTemp.length === 0) {
+    console.log("no results");
+  }
+
+  authTemp = null;
+  categoryTemp = null;  
+  console.log(apiListFiltered);
+  this.activatePager(apiListFiltered); 
+
 }
 
   render() {
-    const apiList = this.state.apiList;
     return (
       <div>
       {this.state.apiList.length}
@@ -241,7 +296,7 @@ toggleSelected(index) {
       <br />
       <br />
       <AuthFilter pr_items={this.state.authTypes} 
-      pr_data={this.toggleSelected} />
+      pr_data={this.toggleAuthType} />
 
       <HttpsToggle 
       pr_https={this.state.https}
@@ -251,7 +306,7 @@ toggleSelected(index) {
       <div className="row">
         <div className="col-sm-3">
          <CategoryList pr_categoryTypes={this.state.categoryTypes} 
-         pr_data={this.getData} /> 
+         pr_filterCategory={this.filterCategory} /> 
         </div>
         <div className="col-sm-9">
           <ApiList_table pr_items={this.state.apiList} />
