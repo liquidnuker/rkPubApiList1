@@ -211,9 +211,12 @@ toggleAuthTypeCheckbox(checked) {
 
 toggleHttps(checked) {
   checked = !checked;
-  this.setState(prevState => ({
-    https: checked
-  }));
+  // this.setState(prevState => ({
+  //   https: checked
+  // }));
+  this.state.https = checked;
+
+  this.filterAuthType();
 }
 
 filterCategory(category) {

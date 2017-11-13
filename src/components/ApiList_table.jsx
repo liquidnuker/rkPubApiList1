@@ -35,10 +35,10 @@ export default class ApiList_table extends React.Component {
           <p>{ i.Category }</p>
         </td>
         <td class="col-xs-12 col-sm-2">
-          <p>{ i.Auth }</p>
+          <p>{i.Auth ? i.Auth : 'null'}</p>
         </td>
         <td class="col-xs-12 col-sm-1 https">
-          {i.HTTPS}
+          {i.HTTPS ? 'true' : 'false'}
         </td>
       </tr>
       )}
