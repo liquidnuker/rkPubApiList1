@@ -8,27 +8,7 @@ import {store} from "../js/store.js";
 
 import ApiList_table from "./ApiList_table.jsx";
 import CategoryList from "./CategoryList.jsx";
-
-class AuthFilter extends React.Component {
-  // methods
-  send(param) {
-    this.props.pr_data(param);
-  }  
-    
-  render() {
-    return (
-      <ul>
-      {this.props.pr_items.map((i, index) =>
-        <li>
-        <input type="checkbox" value={i.authName} checked={i.checked} 
-        onClick={() => { this.send(index)}} />
-        <label tabIndex="0">{ i.authName }</label>
-        </li>
-      )}
-      </ul>      
-    );
-  }
-}
+import AuthFilter from "./AuthFilter.jsx";
 
 class HttpsToggle extends React.Component {
   constructor(props) {
@@ -299,7 +279,7 @@ filterAuthType() {
       <br />
       <br />
       <AuthFilter pr_items={this.state.authTypes} 
-      pr_data={this.toggleAuthType} />
+      pr_toggleAuthType={this.toggleAuthType} />
 
       <HttpsToggle 
       pr_https={this.state.https}
