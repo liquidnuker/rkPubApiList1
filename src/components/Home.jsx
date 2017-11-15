@@ -9,30 +9,7 @@ import {store} from "../js/store.js";
 import ApiList_table from "./ApiList_table.jsx";
 import CategoryList from "./CategoryList.jsx";
 import AuthFilter from "./AuthFilter.jsx";
-
-class HttpsToggle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    };
-    // binders    
-  }
-  // hooks
-  
-  // methods
-  
-  render() {
-    return (
-      <div>
-      <input type="checkbox" id="checkbox" checked={this.props.pr_https} 
-      onClick={() => { this.props.pr_toggleHttps(this.props.pr_https)}}/>
-      <label tabIndex="0" htmlFor="checkbox">HTTPS only</label>
-      </div>
-    );
-  }
-}
-
+import HttpsToggle from "./HttpsToggle.jsx";
 
 export default class ComponentWithState extends React.Component {
   constructor(props) {

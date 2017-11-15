@@ -59,59 +59,24 @@ var _AuthFilter = __webpack_require__(153);
 
 var _AuthFilter2 = _interopRequireDefault(_AuthFilter);
 
+var _HttpsToggle = __webpack_require__(154);
+
+var _HttpsToggle2 = _interopRequireDefault(_HttpsToggle);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var HttpsToggle = function (_React$Component) {
-  (0, _inherits3.default)(HttpsToggle, _React$Component);
-
-  function HttpsToggle(props) {
-    (0, _classCallCheck3.default)(this, HttpsToggle);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (HttpsToggle.__proto__ || (0, _getPrototypeOf2.default)(HttpsToggle)).call(this, props));
-
-    _this.state = {};
-    // binders    
-    return _this;
-  }
-  // hooks
-
-  // methods
-
-  (0, _createClass3.default)(HttpsToggle, [{
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      return React.createElement(
-        "div",
-        null,
-        React.createElement("input", { type: "checkbox", id: "checkbox", checked: this.props.pr_https,
-          onClick: function onClick() {
-            _this2.props.pr_toggleHttps(_this2.props.pr_https);
-          } }),
-        React.createElement(
-          "label",
-          { tabIndex: "0", htmlFor: "checkbox" },
-          "HTTPS only"
-        )
-      );
-    }
-  }]);
-  return HttpsToggle;
-}(React.Component);
-
-var ComponentWithState = function (_React$Component2) {
-  (0, _inherits3.default)(ComponentWithState, _React$Component2);
+var ComponentWithState = function (_React$Component) {
+  (0, _inherits3.default)(ComponentWithState, _React$Component);
 
   function ComponentWithState(props) {
     (0, _classCallCheck3.default)(this, ComponentWithState);
 
-    var _this3 = (0, _possibleConstructorReturn3.default)(this, (ComponentWithState.__proto__ || (0, _getPrototypeOf2.default)(ComponentWithState)).call(this, props));
+    var _this = (0, _possibleConstructorReturn3.default)(this, (ComponentWithState.__proto__ || (0, _getPrototypeOf2.default)(ComponentWithState)).call(this, props));
 
-    _this3.API_URL = "https://raw.githubusercontent.com/toddmotto/public-apis/master/json/entries.json";
-    _this3.BACKUP_URL = "./entries_offline.json";
+    _this.API_URL = "https://raw.githubusercontent.com/toddmotto/public-apis/master/json/entries.json";
+    _this.BACKUP_URL = "./entries_offline.json";
 
-    _this3.state = {
+    _this.state = {
       apiListCache: [], // default unfiltered items
       apiTotalCount: "",
       apiListFiltered: "", // filtered items
@@ -140,10 +105,10 @@ var ComponentWithState = function (_React$Component2) {
     };
 
     // binders
-    _this3.filterCategory = _this3.filterCategory.bind(_this3);
-    _this3.toggleAuthType = _this3.toggleAuthType.bind(_this3);
-    _this3.toggleHttps = _this3.toggleHttps.bind(_this3);
-    return _this3;
+    _this.filterCategory = _this.filterCategory.bind(_this);
+    _this.toggleAuthType = _this.toggleAuthType.bind(_this);
+    _this.toggleHttps = _this.toggleHttps.bind(_this);
+    return _this;
   }
 
   // lifecycle hooks
@@ -160,17 +125,17 @@ var ComponentWithState = function (_React$Component2) {
   }, {
     key: "getApiData",
     value: function getApiData(url) {
-      var _this4 = this;
+      var _this2 = this;
 
       _axios2.default.get(url).then(function (response) {
-        _this4.setState({
+        _this2.setState({
           apiTotalCount: response.data.count,
           apiListCache: response.data.entries,
-          apiListFiltered: _this4.apiListCache
+          apiListFiltered: _this2.apiListCache
         });
-        _this4.activatePager(_this4.state.apiListCache);
+        _this2.activatePager(_this2.state.apiListCache);
       }).then(function () {
-        _this4.addFiltersList(_this4.state.apiListCache);
+        _this2.addFiltersList(_this2.state.apiListCache);
       }).catch(function (error) {
         if (error.response) {
           // The request was made and the server responded with a status code
@@ -193,16 +158,16 @@ var ComponentWithState = function (_React$Component2) {
   }, {
     key: "activatePager",
     value: function activatePager(data) {
-      var _this5 = this;
+      var _this3 = this;
 
       this.pager = null;
       this.pager = new _Paginate2.default(data, this.state.perPage);
 
       this.setState(function (prevState) {
         return {
-          apiList: _this5.pager.page(0),
-          currentPage: _this5.pager.currentPage,
-          totalPages: _this5.pager.totalPages,
+          apiList: _this3.pager.page(0),
+          currentPage: _this3.pager.currentPage,
+          totalPages: _this3.pager.totalPages,
           pagerButtons: true
         };
       });
@@ -210,7 +175,7 @@ var ComponentWithState = function (_React$Component2) {
   }, {
     key: "addFiltersList",
     value: function addFiltersList(arr) {
-      var _this6 = this;
+      var _this4 = this;
 
       // for authTypes
       var authTemp = (0, _arr_extractUnique.arr_extractUnique)(arr, "Auth");
@@ -239,7 +204,7 @@ var ComponentWithState = function (_React$Component2) {
       var temp2 = [];
       // filter to get length of each item then push
       temp.map(function (i) {
-        var l = (0, _arr_filter.arr_filter)(_this6.state.apiListCache, "Category", i);
+        var l = (0, _arr_filter.arr_filter)(_this4.state.apiListCache, "Category", i);
 
         temp2.push({
           catName: i,
@@ -379,7 +344,7 @@ var ComponentWithState = function (_React$Component2) {
         React.createElement("br", null),
         React.createElement(_AuthFilter2.default, { pr_items: this.state.authTypes,
           pr_toggleAuthType: this.toggleAuthType }),
-        React.createElement(HttpsToggle, {
+        React.createElement(_HttpsToggle2.default, {
           pr_https: this.state.https,
           pr_toggleHttps: this.toggleHttps }),
         React.createElement(
@@ -4432,6 +4397,80 @@ var AuthFilter = function (_React$Component) {
 }(React.Component);
 
 exports.default = AuthFilter;
+
+/***/ }),
+/* 154 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _getPrototypeOf = __webpack_require__(44);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(49);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(50);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(51);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(62);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var HttpsToggle = function (_React$Component) {
+  (0, _inherits3.default)(HttpsToggle, _React$Component);
+
+  function HttpsToggle(props) {
+    (0, _classCallCheck3.default)(this, HttpsToggle);
+
+    var _this = (0, _possibleConstructorReturn3.default)(this, (HttpsToggle.__proto__ || (0, _getPrototypeOf2.default)(HttpsToggle)).call(this, props));
+
+    _this.state = {};
+    // binders    
+    return _this;
+  }
+  // hooks
+
+  // methods
+
+  (0, _createClass3.default)(HttpsToggle, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return React.createElement(
+        "div",
+        null,
+        React.createElement("input", { type: "checkbox", id: "checkbox", checked: this.props.pr_https,
+          onClick: function onClick() {
+            _this2.props.pr_toggleHttps(_this2.props.pr_https);
+          } }),
+        React.createElement(
+          "label",
+          { tabIndex: "0", htmlFor: "checkbox" },
+          "HTTPS only"
+        )
+      );
+    }
+  }]);
+  return HttpsToggle;
+}(React.Component);
+
+exports.default = HttpsToggle;
 
 /***/ })
 ]));
