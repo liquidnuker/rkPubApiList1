@@ -127,7 +127,8 @@ export default class ComponentWithState extends React.Component {
     this.toggleAuthType = this.toggleAuthType.bind(this);
     this.toggleHttps = this.toggleHttps.bind(this);
     this.showPage = this.showPage.bind(this);
-    // this.prev = this.prev.bind(this);
+    this.prev = this.prev.bind(this);
+    this.next = this.next.bind(this);
   }
 
   // lifecycle hooks
@@ -324,15 +325,47 @@ filterAuthType() {
 }
 
 showPage(num) {
-  console.log("gotopage" + " " + num);
+  let apiList = this.pager.page(num);
+  
+  this.setState(prevState => ({
+    apiList: apiList,
+    currentPage: num
+  }));
 }
 
 prev() {
-  console.log("prev");
+  let apiList = this.state.apiList;
+  let currentPage = this.state.currentPage;
+
+    if (this.pager.currentPage === 1) {
+      apiList = this.pager.page(this.pager.totalPages);
+    } else {
+      apiList = this.pager.prev();
+    }
+    currentPage = this.pager.currentPage;
+
+    this.setState(prevState => ({
+      apiList: apiList,
+      currentPage: currentPage
+    }));
+
 }
 
 next() {
-  console.log("next");
+  let apiList = this.state.apiList;
+  let currentPage = this.state.currentPage;
+
+  if (!this.pager.hasNext()) {
+    apiList = this.pager.page(0);
+  } else {
+    apiList = this.pager.next();
+  }
+  currentPage = this.pager.currentPage;
+
+  this.setState(prevState => ({
+    apiList: apiList,
+    currentPage: currentPage
+  }));
 }
 
   render() {
