@@ -11,6 +11,46 @@ import CategoryList from "./CategoryList.jsx";
 import AuthFilter from "./AuthFilter.jsx";
 import HttpsToggle from "./HttpsToggle.jsx";
 
+class NextButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+
+    // binders
+    
+  }
+  // hooks
+  
+  // methods
+  
+  render() {
+    return (
+      <button onClick={() => { this.props.pr_next() }}>nextPage</button>
+    );
+  }
+}
+
+class PrevButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+
+    // binders
+    
+  }
+  // hooks
+  
+  // methods
+  
+  render() {
+    return (
+      <button onClick={() => { this.props.pr_prev() }}>prevPage</button>
+    );
+  }
+}
+
 class PageSelector extends React.Component {
   constructor(props) {
     super(props);
@@ -33,9 +73,15 @@ class PageSelector extends React.Component {
   render() {
     return (
       <div>
-      <select value={this.props.pr_currentPage} >
+      <PrevButton 
+      pr_prev={this.props.pr_prev} />
+
+      page <select value={this.props.pr_currentPage} >
        {this.createOptions()}
-      </select>
+      </select> of {this.props.pr_totalPages}
+
+      <NextButton 
+      pr_next={this.props.pr_next} />
       </div>
     );
   }
@@ -81,6 +127,7 @@ export default class ComponentWithState extends React.Component {
     this.toggleAuthType = this.toggleAuthType.bind(this);
     this.toggleHttps = this.toggleHttps.bind(this);
     this.showPage = this.showPage.bind(this);
+    // this.prev = this.prev.bind(this);
   }
 
   // lifecycle hooks
@@ -280,6 +327,14 @@ showPage(num) {
   console.log("gotopage" + " " + num);
 }
 
+prev() {
+  console.log("prev");
+}
+
+next() {
+  console.log("next");
+}
+
   render() {
     return (
       <div>
@@ -287,10 +342,15 @@ showPage(num) {
       <br />
       {this.state.totalPages} {this.state.currentPage}
       <br />
+      
+
       <PageSelector 
       pr_currentPage={this.state.currentPage}
       pr_totalPages={this.state.totalPages}
-      pr_showPage={this.showPage} />
+      pr_showPage={this.showPage}
+      pr_prev={this.prev} 
+      pr_next={this.next}
+      />
       
       <br />
       <br />
