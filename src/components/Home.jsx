@@ -72,7 +72,7 @@ getApiData(url) {
       this.setState({
         apiTotalCount: response.data.count,
         apiListCache: response.data.entries,
-        apiListFiltered: this.apiListCache,
+        apiListFiltered: response.data.entries,
       });
       this.activatePager(this.state.apiListCache);
     })
@@ -176,11 +176,7 @@ toggleAuthTypeCheckbox(checked) {
 
 toggleHttps(checked) {
   checked = !checked;
-  // this.setState(prevState => ({
-  //   https: checked
-  // }));
   this.state.https = checked;
-
   this.filterAuthType();
 }
 
@@ -207,8 +203,6 @@ toggleAuthType(index) {
     authTypeSelected: selectedItems
   }));
 
-  // ok
-  // console.log(this.state.authTypeSelected);
   this.filterAuthType();
 }
 
@@ -248,10 +242,12 @@ filterAuthType() {
 
   authTemp = null;
   categoryTemp = null;  
-  // console.log(apiListFiltered);
+  
+  this.setState(prevState => ({
+    apiListFiltered: apiListFiltered
+  }));
 
   this.activatePager(apiListFiltered); 
-
 }
 
 showPage(num) {
@@ -300,26 +296,12 @@ next() {
 
 setPageItems(perPage) {
   this.state.perPage = perPage;
-
-  if (this.state.apiListFiltered === undefined) {
-    this.activatePager(this.state.apiListCache);
-  } else {
-    this.activatePager(this.state.apiListFiltered);
-  }
+  this.activatePager(this.state.apiListFiltered);
 }
 
 search(keyword) {
-    let currentCategory = this.state.currentCategory;
-    let data;
-
-    if (currentCategory === "All") {
-      data = this.state.apiListCache;
-    } else {
-      data = this.state.apiList;
-    }
-
     let res = search_fuse({
-      data: data,
+      data: this.state.apiListFiltered,
       value: keyword,
       searchKeys: ["API", "Link"]
     });
@@ -327,7 +309,7 @@ search(keyword) {
     if (res.length === 0) {
       console.log("no results");
     } else {
-      console.log(`found items`);
+      console.log(`found ${res.length} items`);
       this.activatePager(res);
       res = null;
     }
@@ -372,7 +354,8 @@ search(keyword) {
       <div className="row">
         <div className="col-sm-3">
          <CategoryList pr_categoryTypes={this.state.categoryTypes} 
-         pr_filterCategory={this.filterCategory} /> 
+         pr_filterCategory={this.filterCategory} 
+         pr_apiTotalCount={this.state.apiTotalCount} /> 
         </div>
         <div className="col-sm-9">
           <ApiList_table pr_items={this.state.apiList} />

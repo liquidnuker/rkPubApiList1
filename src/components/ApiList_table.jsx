@@ -23,7 +23,7 @@ export default class ApiList_table extends React.Component {
       <table class="col-xs-12 apilist_table">
     <tbody aria-live="assertive" aria-atomic="true" aria-describedby="api_status">
       {this.props.pr_items.map((i) =>
-        <tr v-for="i in prApiList" class="row">
+        <tr class="row">
         <td class="col-xs-12 col-sm-7">
           <p class="apiname">{ i.API }</p>
           <summary>
