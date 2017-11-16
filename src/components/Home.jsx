@@ -12,6 +12,31 @@ import AuthFilter from "./AuthFilter.jsx";
 import HttpsToggle from "./HttpsToggle.jsx";
 import PageSelector from "./PageSelector.jsx";
 
+class ItemsPerPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+
+    // binders    
+  }
+  // hooks
+  
+  // methods
+    
+  render() {
+    return (
+      <div>
+      <select value={this.props.pr_perPage} >
+      {this.props.pr_perPageItems.map((i) =>
+        <option onClick={() => { this.props.pr_setPageItems(i) }} key={i} value={i}>{i}</option>
+      )}
+      </select> 
+      </div>
+    );
+  }
+}
+
 export default class Rkpi extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +47,7 @@ export default class Rkpi extends React.Component {
     this.state = {
       apiListCache: [], // default unfiltered items
       apiTotalCount: "",
-      apiListFiltered: "", // filtered items
+      apiListFiltered: [], // filtered items
       apiList: [], // displayed/paginated items
 
       categoryTypes: [],
@@ -54,6 +79,7 @@ export default class Rkpi extends React.Component {
     this.showPage = this.showPage.bind(this);
     this.prev = this.prev.bind(this);
     this.next = this.next.bind(this);
+    this.setPageItems = this.setPageItems.bind(this);
   }
 
   // lifecycle hooks
@@ -244,7 +270,8 @@ filterAuthType() {
 
   authTemp = null;
   categoryTemp = null;  
-  console.log(apiListFiltered);
+  // console.log(apiListFiltered);
+
   this.activatePager(apiListFiltered); 
 
 }
@@ -293,6 +320,16 @@ next() {
   }));
 }
 
+setPageItems(perPage) {
+  this.state.perPage = perPage;
+
+  if (this.state.apiListFiltered === undefined) {
+    this.activatePager(this.state.apiListCache);
+  } else {
+    this.activatePager(this.state.apiListFiltered);
+  }
+}
+
   render() {
     return (
       <div>
@@ -309,6 +346,10 @@ next() {
       pr_prev={this.prev} 
       pr_next={this.next}
       />
+
+      <ItemsPerPage pr_perPage={this.state.perPage}
+      pr_perPageItems={this.state.perPageItems} 
+      pr_setPageItems={this.setPageItems} />
       
       <br />
       <br />
