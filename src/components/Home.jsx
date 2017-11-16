@@ -10,84 +10,9 @@ import ApiList_table from "./ApiList_table.jsx";
 import CategoryList from "./CategoryList.jsx";
 import AuthFilter from "./AuthFilter.jsx";
 import HttpsToggle from "./HttpsToggle.jsx";
+import PageSelector from "./PageSelector.jsx";
 
-class NextButton extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-
-    // binders
-    
-  }
-  // hooks
-  
-  // methods
-  
-  render() {
-    return (
-      <button onClick={() => { this.props.pr_next() }}>nextPage</button>
-    );
-  }
-}
-
-class PrevButton extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-
-    // binders
-    
-  }
-  // hooks
-  
-  // methods
-  
-  render() {
-    return (
-      <button onClick={() => { this.props.pr_prev() }}>prevPage</button>
-    );
-  }
-}
-
-class PageSelector extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-
-    // binders    
-  }
-  // hooks
-  createOptions() {
-     let items = [];         
-     for (let i = 1; i <= this.props.pr_totalPages; i++) {             
-          items.push(<option onClick={() => 
-            { this.props.pr_showPage(i) }} key={i} value={i}>{i}</option>);   
-      }
-     return items;
- }    
-  // methods
-    
-  render() {
-    return (
-      <div>
-      <PrevButton 
-      pr_prev={this.props.pr_prev} />
-
-      page <select value={this.props.pr_currentPage} >
-       {this.createOptions()}
-      </select> of {this.props.pr_totalPages}
-
-      <NextButton 
-      pr_next={this.props.pr_next} />
-      </div>
-    );
-  }
-}
-
-export default class ComponentWithState extends React.Component {
+export default class Rkpi extends React.Component {
   constructor(props) {
     super(props);
 
