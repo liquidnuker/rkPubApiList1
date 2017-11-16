@@ -12,6 +12,7 @@ import AuthFilter from "./AuthFilter.jsx";
 import HttpsToggle from "./HttpsToggle.jsx";
 import PageSelector from "./PageSelector.jsx";
 import ItemsPerPage from "./ItemsPerPage.jsx";
+import Search from "./Search.jsx";
 
 export default class Rkpi extends React.Component {
   constructor(props) {
@@ -56,6 +57,7 @@ export default class Rkpi extends React.Component {
     this.prev = this.prev.bind(this);
     this.next = this.next.bind(this);
     this.setPageItems = this.setPageItems.bind(this);
+    this.search = this.search.bind(this);
   }
 
   // lifecycle hooks
@@ -306,6 +308,31 @@ setPageItems(perPage) {
   }
 }
 
+search(keyword) {
+    let currentCategory = this.state.currentCategory;
+    let data;
+
+    if (currentCategory === "All") {
+      data = this.state.apiListCache;
+    } else {
+      data = this.state.apiList;
+    }
+
+    let res = search_fuse({
+      data: data,
+      value: keyword,
+      searchKeys: ["API", "Link"]
+    });
+
+    if (res.length === 0) {
+      console.log("no results");
+    } else {
+      console.log(`found items`);
+      this.activatePager(res);
+      res = null;
+    }
+}
+
   render() {
     return (
       <div>
@@ -335,6 +362,11 @@ setPageItems(perPage) {
       <HttpsToggle 
       pr_https={this.state.https}
       pr_toggleHttps={this.toggleHttps} />
+
+      <br />
+      <br />
+      <Search pr_search={this.search} 
+      pr_currentCategory={this.state.currentCategory} />
 
 
       <div className="row">

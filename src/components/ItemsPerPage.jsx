@@ -13,7 +13,7 @@ export default class ItemsPerPage extends React.Component {
   render() {
     return (
       <div>
-      <select value={this.props.pr_perPage} >
+      Items per page: <select value={this.props.pr_perPage} >
       {this.props.pr_perPageItems.map((i) =>
         <option onClick={() => 
           { this.props.pr_setPageItems(i) }} key={i} value={i}>{i}</option>
