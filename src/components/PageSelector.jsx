@@ -3,14 +3,11 @@ class NextButton extends React.Component {
     super(props);
     this.state = {
     };
-
-    // binders
-    
+    // binders    
   }
-  // hooks
-  
+  // hooks  
   // methods
-  
+
   render() {
     return (
       <button onClick={() => { this.props.pr_next() }}>nextPage</button>
@@ -23,11 +20,9 @@ class PrevButton extends React.Component {
     super(props);
     this.state = {
     };
-
     // binders    
   }
-  // hooks
-    
+  // hooks    
   // methods
   
   render() {
@@ -42,15 +37,15 @@ export default class PageSelector extends React.Component {
     super(props);
     this.state = {
     };
-
     // binders    
   }
   // hooks
+  // methods
   createOptions() {
      let items = [];         
      for (let i = 1; i <= this.props.pr_totalPages; i++) {             
           items.push(<option onClick={() => 
-            { this.props.pr_showPage(i) }} key={i} value={i}>{i}</option>);   
+            { this.props.pr_val_showPage(i) }} key={i} value={i}>{i}</option>);   
       }
      return items;
  }    

@@ -24,7 +24,7 @@ export default class Search extends React.Component {
         value: event.target.value
       });
 
-      this.props.pr_search(this.state.value);
+      this.props.pr_val_search(this.state.value);
     }
   }
   
@@ -39,7 +39,7 @@ export default class Search extends React.Component {
       onChange={this.handleChange}
       onKeyDown={this.keyPress} />
       <button class="btn btn1-01" data-message="Search the api listing" 
-      onClick={() => { this.props.pr_search(this.state.value) }}>Search</button>
+      onClick={() => { this.props.pr_val_search(this.state.value) }}>Search</button>
       </span>
       </div>
     );
