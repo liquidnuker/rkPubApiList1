@@ -41,8 +41,6 @@ export default class Rkpi extends React.Component {
         perPage: 20,
         perPageItems: [10, 20, 40, 60, 100],
 
-        sortAsc: true,
-
         // messages
         status: {
           search: "status.search"
@@ -58,6 +56,7 @@ export default class Rkpi extends React.Component {
       this.next = this.next.bind(this);
       this.setPageItems = this.setPageItems.bind(this);
       this.search = this.search.bind(this);
+      this.sortTable = this.sortTable.bind(this);
     }
 
     // lifecycle hooks
@@ -312,6 +311,20 @@ export default class Rkpi extends React.Component {
       }
     }
 
+    sortTable(sortBy, order) {      
+      let apiListFiltered = this.state.apiListFiltered;
+      let sorted = arr_sortValue(sortBy, apiListFiltered);
+
+      if (order) {
+          apiListFiltered = sorted;
+        } else {
+          apiListFiltered = sorted.reverse();
+      }
+      
+      sorted = null;
+      this.activatePager(apiListFiltered);
+    }
+
   render() {
     return (
       <div>
@@ -354,7 +367,8 @@ export default class Rkpi extends React.Component {
         <div className="col-sm-9">
           <ApiList_table 
           pr_items={this.state.apiList} 
-          pr_val_filterCategory={this.filterCategory} />
+          pr_val_filterCategory={this.filterCategory}
+          pr_val_sortTable={this.sortTable} />
         </div>
       </div>
       </div>
