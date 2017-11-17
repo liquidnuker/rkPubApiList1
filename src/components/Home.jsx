@@ -358,7 +358,8 @@ search(keyword) {
          pr_apiTotalCount={this.state.apiTotalCount} /> 
         </div>
         <div className="col-sm-9">
-          <ApiList_table pr_items={this.state.apiList} />
+          <ApiList_table pr_items={this.state.apiList} 
+          pr_filterCategory={this.filterCategory} />
         </div>
       </div>
       </div>

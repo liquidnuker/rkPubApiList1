@@ -32,7 +32,7 @@ export default class ApiList_table extends React.Component {
           <a class="apilink" href="i.Link">{ i.Link }</a>
         </td>
         <td class="col-xs-12 col-sm-2">
-          <p>{ i.Category }</p>
+          <a onClick={() => { this.props.pr_filterCategory(i.Category) }}>{ i.Category }</a>
         </td>
         <td class="col-xs-12 col-sm-2">
           <p>{i.Auth ? i.Auth : 'null'}</p>

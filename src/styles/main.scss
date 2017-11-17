@@ -30,3 +30,12 @@ body {
 .item-id {
   background-color: #ccc;
 }
+
+a {
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;  
+  }  
+}
