@@ -241,10 +241,6 @@ export default class Rkpi extends React.Component {
       authTemp = null;
       categoryTemp = null;
 
-      this.setState(prevState => ({
-        apiListFiltered: apiListFiltered
-      }));
-
       this.activatePager(apiListFiltered);
     }
 
@@ -328,6 +324,36 @@ export default class Rkpi extends React.Component {
   render() {
     return (
       <div>
+      <header className="columns is-gapless is-centered">
+        <div className="column is-10-desktop">
+          <div className="columns is-gapless">
+            <div className="column is-3">
+              is-3
+            </div>
+            <div className="column is-9">
+              is-9
+            </div>
+          </div>
+        </div>
+      </header>
+      <main className="columns is-gapless is-centered">
+        <div className="column is-10-desktop">
+          <div className="columns is-gapless is-multiline">
+            <div className="column is-12">
+              is-12
+            </div>
+            <div className="column is-12">
+              is-12
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer className="columns is-gapless is-centered">
+        <div className="column is-10-desktop">
+        column
+        </div>
+      </footer>
+
       <PageSelector 
       pr_currentPage={this.state.currentPage}
       pr_totalPages={this.state.totalPages}

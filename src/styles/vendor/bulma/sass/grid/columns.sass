@@ -5,7 +5,7 @@ $column-gap: 0.75rem !default
   flex-basis: 0
   flex-grow: 1
   flex-shrink: 1
-  padding: $column-gap
+  // padding: $column-gap
   .columns.is-mobile > &.is-narrow
     flex: none
   .columns.is-mobile > &.is-full
@@ -286,7 +286,8 @@ $column-gap: 0.75rem !default
   &:last-child
     margin-bottom: (-$column-gap)
   &:not(:last-child)
-    margin-bottom: calc(1.5rem - #{$column-gap})
+    // * modified
+    // * margin-bottom: calc(1.5rem - #{$column-gap})
   // Modifiers
   &.is-centered
     justify-content: center
@@ -298,7 +299,7 @@ $column-gap: 0.75rem !default
       margin: 0
       padding: 0 !important
     &:not(:last-child)
-      margin-bottom: 1.5rem
+      // * margin-bottom: 1.5rem
     &:last-child
       margin-bottom: 0
   &.is-mobile

@@ -31,6 +31,11 @@ body {
   background-color: #ccc;
 }
 
+.columns,
+.column {
+  border: 1px solid #000;
+}
+
 a {
   cursor: pointer;
   text-decoration: underline;
