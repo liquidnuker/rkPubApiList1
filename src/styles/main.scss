@@ -14,6 +14,8 @@
 @import "vendor/bulma/bulma.sass"; 
 @import "layout/grid";
 
+@import "pages/home";
+
 // show the active breakpoint (_mq.scss)
 // ==================================================/
 // @include mq-show-breakpoints;
@@ -22,25 +24,3 @@
 // ==================================================/
 // @include col-grid-border(#000);
 
-// temp
-body {
-  @extend %system_normal--300;
-}
-
-.item-id {
-  background-color: #ccc;
-}
-
-.columns,
-.column {
-  border: 1px solid #000;
-}
-
-a {
-  cursor: pointer;
-  text-decoration: underline;
-
-  &:hover {
-    text-decoration: none;  
-  }  
-}
