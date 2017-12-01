@@ -331,8 +331,8 @@ export default class Rkpi extends React.Component {
       <div>
       <main className="columns is-gapless is-centered">
         <div className="column is-10-desktop">
-          <div className="columns is-gapless is-multiline apilist">
-            <div className="column is-3">
+          <div className="row apilist">
+            <div className="col-sm-3">
               {/*category left nav*/}
               <CategoryList 
          pr_categoryTypes={this.state.categoryTypes} 
@@ -340,27 +340,32 @@ export default class Rkpi extends React.Component {
          pr_val_filterCategory={this.filterCategory}  /> 
             {/*end category left nav*/}
             </div>
-            <div className="column is-9">
-              <div className="apilist_rightside">
-              {/*authfilter/search*/}
-                <div className="columns is-gapless authfilter_search">
-                  <div className="column is-3">
-                  {/*authfilter*/}
+            <div className="col-sm-9">
+              {/*begin rightside*/}
+              <div className="row col-xs-12 apilist_rightside">
+              
+              {/*authfilter_search*/}
+              <div className="row col-xs-12 apilist_filtersearch">
+              {/*authfilter*/}
                   <AuthFilter 
       pr_items={this.state.authTypes} 
       pr_val_toggleAuthType={this.toggleAuthType} />
+
       <HttpsToggle 
       pr_https={this.state.https}
       pr_val_toggleHttps={this.toggleHttps} />
                 {/*end authfilter*/}
-                  </div>
-                  <div className="column is-9">
-                  {/*search*/}
+
+                {/*search*/}
                   <Search 
       pr_currentCategory={this.state.currentCategory}
       pr_val_search={this.search}  />
                 {/*end search*/}
-                <br />
+              </div>
+              {/*end authfilter_search*/}
+
+            {/*page controls*/}
+            <div className="row col-xs-12 apilist_pagecontrols">
               {/*page controls*/}
               <PageSelector 
       pr_currentPage={this.state.currentPage}
@@ -374,34 +379,27 @@ export default class Rkpi extends React.Component {
       pr_perPageItems={this.state.perPageItems} 
       pr_val_setPageItems={this.setPageItems} />
             {/*end page controls*/}
+            </div>
+            {/*end page controls*/}
 
-                  </div>
-                </div>
-              {/*end authfilter/search*/}
-                {/*main apilist table*/}
-                <div className="column is-12">
+            {/*main api list*/}
+          <div className="row col-xs-12 apilist_main">
+              {/*main apilist table*/}
                 <ApiList_table 
           pr_items={this.state.apiList} 
           pr_val_filterCategory={this.filterCategory}
           pr_val_sortTable={this.sortTable} />
-                </div>
-              {/*end main apilist table*/}
+                 {/*end main apilist table*/}
+      
+            </div>
+          {/*end main api list*/}
+
               </div>
+            {/*end rightside*/}
             </div>
           </div>
         </div>
-      </main>
-      
-      
-      
-           
-
-      
-
-      
-
-
-      
+      </main>      
       </div>
     );
   }

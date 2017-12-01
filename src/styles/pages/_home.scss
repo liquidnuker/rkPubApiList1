@@ -85,27 +85,40 @@ hr {
 // 
 // ==================================================/
 .apilist {
-  @extend %padd--4;
+  // @extend %padd--4;
 }
 
-// apilist_rightside
-// ==================================================/
 // mobile portrait (320x480) 
 @include mq($from: mobile) {
   .apilist_rightside {
-    margin-left: 0;
+    padding-left: 0;
   }
 }
 
 // *mobile landscape (480x320)
 @include mq($from: mobileLandscape) {
   .apilist_rightside {
-    margin-left: 4px;
-  }
+    padding-left: 4px;
+  }  
 }
 
-// authfilter_search
-// ==================================================/
-.authfilter_search {
-  background-color: #ccc;
+.apilist_filtersearch {
+  background-color: #eee;
 }
+
+.apilist_filtersearch,
+.apilist_pagecontrols,
+.apilist_sorter,
+.apilist_main {
+  @extend %padd--4;
+}
+
+.apilist_pagecontrols,
+.apilist_sorter,
+.apilist_main {
+  background-color: #eee;
+  margin-top: 4px;
+}
+
+
+

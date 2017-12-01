@@ -92,7 +92,7 @@ export default class ApiList_table extends React.Component {
           <summary>
           <p class="apidesc">{ i.Description }</p>
           </summary>
-          <a class="apilink" href="i.Link">{ i.Link }</a>
+          <a class="apilink" href={i.Link}>{ i.Link }</a>
         </td>
         <td class="col-xs-12 col-sm-2">
           <a onClick={() => { this.props.pr_val_filterCategory(i.Category) }}>{ i.Category }</a>
