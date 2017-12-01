@@ -241,6 +241,10 @@ export default class Rkpi extends React.Component {
       authTemp = null;
       categoryTemp = null;
 
+      this.setState(prevState => ({
+        apiListFiltered: apiListFiltered
+      }));
+
       this.activatePager(apiListFiltered);
     }
 
@@ -318,6 +322,7 @@ export default class Rkpi extends React.Component {
       }
       
       sorted = null;
+
       this.activatePager(apiListFiltered);
     }
 
