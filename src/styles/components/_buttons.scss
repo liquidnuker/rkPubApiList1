@@ -29,5 +29,11 @@ input [type="button"],
 // ==================================================/
 .btn1-01 {
   @extend %padd--4;
-  border: 1px solid #000;
+  @include background-gradient(#fff, #e8e8e8, 'vertical');  
+  border: 1px solid #2c2d32;
+  cursor: pointer;
+
+  &:hover {
+    background: none;
+  }
 }

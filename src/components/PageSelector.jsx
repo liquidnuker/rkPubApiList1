@@ -10,7 +10,7 @@ class NextButton extends React.Component {
 
   render() {
     return (
-      <button onClick={() => { this.props.pr_next() }}>nextPage</button>
+      <button className="btn btn1-01" onClick={() => { this.props.pr_next() }}>nextPage</button>
     );
   }
 }
@@ -27,7 +27,7 @@ class PrevButton extends React.Component {
   
   render() {
     return (
-      <button onClick={() => { this.props.pr_prev() }}>prevPage</button>
+      <button className="btn btn1-01" onClick={() => { this.props.pr_prev() }}>prevPage</button>
     );
   }
 }
@@ -53,17 +53,21 @@ export default class PageSelector extends React.Component {
     
   render() {
     return (
-      <div>
+      <span className="pg_holder">
       <PrevButton 
       pr_prev={this.props.pr_prev} />
 
-      page <select value={this.props.pr_currentPage} >
+      <p>Page </p>
+      <div className="custom-select pg_totalpages">
+      <select value={this.props.pr_currentPage} >
        {this.createOptions()}
-      </select> of {this.props.pr_totalPages}
+      </select>
+      </div>
+      <p> of {this.props.pr_totalPages}</p>
 
       <NextButton 
       pr_next={this.props.pr_next} />
-      </div>
+      </span>
     );
   }
 }

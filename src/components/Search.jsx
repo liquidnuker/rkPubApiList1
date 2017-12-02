@@ -31,14 +31,14 @@ export default class Search extends React.Component {
   render() {
     return (
       <div>
-      <p>{this.state.value}</p>
-      <span class="apilist_search">
+      {/*<p>{this.state.value}</p>*/}
+      <span className="apilist_search">
       <label for="api_search">Search {this.props.pr_currentCategory}:</label>
       <input type="search" name="api_search" id="api_search" placeholder="Enter keyword/s..."
       value={this.state.value} 
       onChange={this.handleChange}
       onKeyDown={this.keyPress} />
-      <button class="btn btn1-01" data-message="Search the api listing" 
+      <button className="btn btn1-01" data-message="Search the api listing" 
       onClick={() => { this.props.pr_val_search(this.state.value) }}>Search</button>
       </span>
       </div>

@@ -120,5 +120,175 @@ hr {
   margin-top: 4px;
 }
 
+// apilist_table
+// ==================================================/
+.apilist_table {
+  a {
+    @extend %display--inline-block;
+    @extend %margin-top--4;
+    @extend %font_color--white2; 
+  }
 
+  tr {
+    @extend %bg_white--secondary;
+    border-bottom: 1px solid #ededed;
 
+    &:nth-of-type(odd) {
+      background-color: #fff;
+    }
+  }
+
+  td {
+    @extend %padd--4;
+    overflow: hidden;
+    // background-color: #666;
+  }  
+
+  .apiname {
+    margin-bottom: 4px;
+    @extend %font_color--white2;
+  }
+
+  .apidesc {
+    @include font-size(14px);
+  }
+
+  .apilink {
+    @include font-size(14px);
+  }
+
+  .https {
+    @extend %text--center;
+  }
+}
+
+// pager controls
+// ==================================================/
+// mobile portrait (320x480) 
+@include mq($from: mobile) {
+  .pg_container {
+    padding-left: 0;
+  }
+
+  .pg_totalpages {
+    width: 20%;
+  }
+
+  .pg_itemsperpage {
+    width: 20%;
+  }
+}
+
+// *mobile landscape (480x320)
+@include mq($from: mobileLandscape) {
+  .pg_container {
+    padding-left: 4px;
+  }
+
+  .pg_totalpages {
+    height: 30px;
+    vertical-align: baseline;
+    width: auto;  
+  }
+
+  .pg_totalpages {
+    margin-left: -1px;
+  }
+
+  .pg_itemsperpage {
+    height: 30px;
+    // vertical-align: text-bottom;
+    width: auto;  
+  }
+
+  .pg_itemsperpage {
+    margin-left: -1px;
+  }
+}
+// end breakpoints
+
+.pg_holder {
+  @extend %display--inline-block;
+  @extend %padd--4;
+  @extend %bg_white--secondary;
+  
+  .custom-select {
+    vertical-align: middle;
+    border: 1px solid #2c2d32;
+  }
+
+  .btn {
+    height: 30px;
+    vertical-align: middle;
+  }
+
+  p {
+    @extend %display--inline-block;
+    vertical-align: middle;
+  }
+}
+
+// search
+// ==================================================/
+// mobile portrait (320x480) 
+@include mq($from: mobile) {
+  .apilist_search {
+    button {
+      margin-top: 4px;
+    }
+
+    input[type="search"] {
+      display: block;
+    }
+  }
+
+  .apilist_search_holder {
+    margin-left: 0;
+  }
+}
+
+// *mobile landscape (480x320)
+@include mq($from: mobileLandscape) {
+  .apilist_search {
+    input[type="search"] {
+      display: inline-block;
+    }
+  }  
+
+  .apilist_search_holder {
+    margin-left: 4px;
+  }
+}
+// end breakpoints
+
+.apilist_search_holder {
+  @extend %bg_white--secondary;
+  @extend %padd--4;
+}
+
+.apilist_search {
+  @extend %display--block;
+  margin-bottom: 4px;
+  label {
+    @extend %display--inline-block;
+  }
+
+  input[type="text"],
+  input[type="search"] {
+    @extend %padd--4;
+    height: 30px;
+    border: 1px solid #000;
+    background-color: #fff;
+
+    &:focus {
+        border: 1px solid;
+        border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+        outline: 1px solid blue;
+        // background-color: #eee;
+      }
+  }
+
+  button {
+    height: 30px;
+  }
+}
