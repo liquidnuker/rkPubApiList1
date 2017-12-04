@@ -33,7 +33,7 @@ export default class Search extends React.Component {
       <div>
       {/*<p>{this.state.value}</p>*/}
       <span className="apilist_search">
-      <label for="api_search">Search {this.props.pr_currentCategory}:</label>
+      <label for="api_search">Search {this.props.pr_currentCategory}:&nbsp;</label>
       <input type="search" name="api_search" id="api_search" placeholder="Enter keyword/s..."
       value={this.state.value} 
       onChange={this.handleChange}

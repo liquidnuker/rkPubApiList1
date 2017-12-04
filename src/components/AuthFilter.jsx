@@ -3,7 +3,7 @@ export default class AuthFilter extends React.Component {
       
   render() {
     return (
-      <ul>
+      <ul className="authfilter">
       {this.props.pr_items.map((i, index) =>
         <li>
         <input type="checkbox" value={i.authName} checked={i.checked} 

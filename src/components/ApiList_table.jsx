@@ -78,12 +78,20 @@ export default class ApiList_table extends React.Component {
     return (
       <table className="col-xs-12 apilist_table">
     <tbody aria-live="assertive" aria-atomic="true" aria-describedby="api_status">
-      <SortCategory 
-      pr_val_sortTable={this.props.pr_val_sortTable} />
-
+      <tr className="row">
+      <td className="col-xs-6 col-sm-7">
       <SortAPI
       pr_val_sortTable={this.props.pr_val_sortTable} />
+      </td>
+      <td className="col-xs-6 col-sm-5">
+      <SortCategory 
+      pr_val_sortTable={this.props.pr_val_sortTable} />
+      </td>
+      
+      </tr>
+      
 
+      
       {this.props.pr_items.map((i) =>
         <tr className="row">
         <td className="col-xs-12 col-sm-7">

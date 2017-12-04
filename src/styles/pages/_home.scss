@@ -292,3 +292,17 @@ hr {
     height: 30px;
   }
 }
+
+// authfilter
+// ==================================================/
+.authfilter {
+  li {
+    &:not(:first-of-type) {
+      margin-top: 2px;
+    }
+  }
+}
+
+.authfilter_https--toggle {
+  margin-top: 2px;
+}

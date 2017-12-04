@@ -12,7 +12,7 @@ export default class HttpsToggle extends React.Component {
   
   render() {
     return (
-      <div>
+      <div className="authfilter_https--toggle">
       <input type="checkbox" id="checkbox" checked={this.props.pr_https} 
       onClick={() => { this.props.pr_val_toggleHttps(this.props.pr_https)}}/>
       <label tabIndex="0" htmlFor="checkbox">HTTPS only</label>

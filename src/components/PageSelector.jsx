@@ -57,13 +57,13 @@ export default class PageSelector extends React.Component {
       <PrevButton 
       pr_prev={this.props.pr_prev} />
 
-      <p>Page </p>
+      <p>&nbsp;Page&nbsp;</p>
       <div className="custom-select pg_totalpages">
       <select value={this.props.pr_currentPage} >
        {this.createOptions()}
       </select>
       </div>
-      <p> of {this.props.pr_totalPages}</p>
+      <p>&nbsp;of&nbsp;{this.props.pr_totalPages}&nbsp;</p>
 
       <NextButton 
       pr_next={this.props.pr_next} />

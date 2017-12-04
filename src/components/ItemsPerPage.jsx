@@ -13,7 +13,7 @@ export default class ItemsPerPage extends React.Component {
   render() {
     return (
       <span class="pg_holder">
-      <p>Items per page:</p> 
+      <p>Items per page:&nbsp;</p> 
       <div className="custom-select pg_itemsperpage">
       <select value={this.props.pr_perPage} >
       {this.props.pr_perPageItems.map((i) =>

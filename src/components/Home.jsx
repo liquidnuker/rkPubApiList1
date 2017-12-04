@@ -343,10 +343,10 @@ export default class Rkpi extends React.Component {
             <div className="col-sm-9">
               {/*begin rightside*/}
               <div className="row col-xs-12 apilist_rightside">
-              
               {/*authfilter_search*/}
               <div className="row col-xs-12 apilist_filtersearch">
-              {/*authfilter*/}
+                <div className="col-sm-3">
+                  {/*authfilter*/}
                   <AuthFilter 
       pr_items={this.state.authTypes} 
       pr_val_toggleAuthType={this.toggleAuthType} />
@@ -355,12 +355,14 @@ export default class Rkpi extends React.Component {
       pr_https={this.state.https}
       pr_val_toggleHttps={this.toggleHttps} />
                 {/*end authfilter*/}
-
+                </div>
+                <div className="col-sm-9">
                 {/*search*/}
                   <Search 
       pr_currentCategory={this.state.currentCategory}
       pr_val_search={this.search}  />
                 {/*end search*/}
+                </div>
               </div>
               {/*end authfilter_search*/}
 
