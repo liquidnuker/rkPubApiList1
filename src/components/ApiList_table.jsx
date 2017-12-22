@@ -1,3 +1,28 @@
+class SortIcon extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    };
+
+    // binders    
+  }
+  // hooks  
+  // methods
+  
+  render() {
+    if (this.props.pr_asc) {
+      return (
+        <p>"asc svg"</p>
+        );
+    } else {
+      return (
+        <p>"desc svg"</p>
+        );
+    }
+  }
+}
+
 class SortAPI extends React.Component {
   constructor(props) {
     super(props);
@@ -21,6 +46,7 @@ class SortAPI extends React.Component {
       <div>
         <button className="btn btn1-01" onClick={() => { this.toggle() }}>
           Sort API {this.state.sortAsc ? 'Asc' : 'Desc'}
+          <SortIcon pr_asc={this.state.sortAsc} />
         </button>
       </div>
     );
@@ -50,6 +76,7 @@ class SortCategory extends React.Component {
       <div>
         <button className="btn btn1-01" onClick={() => { this.toggle() }}>
           Sort Category {this.state.sortAsc ? 'Asc' : 'Desc'}
+          <SortIcon pr_asc={this.state.sortAsc} />
         </button>
       </div>
     );
