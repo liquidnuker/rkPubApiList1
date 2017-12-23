@@ -13,11 +13,17 @@ class SortIcon extends React.Component {
   render() {
     if (this.props.pr_asc) {
       return (
-        <p>"asc svg"</p>
+        // up
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" />
+        </svg>
         );
     } else {
       return (
-        <p>"desc svg"</p>
+        // down
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z" />
+        </svg>
         );
     }
   }
@@ -44,9 +50,8 @@ class SortAPI extends React.Component {
   render() {
     return (
       <div>
-        <button className="btn btn1-01" onClick={() => { this.toggle() }}>
-          Sort API {this.state.sortAsc ? 'Asc' : 'Desc'}
-          <SortIcon pr_asc={this.state.sortAsc} />
+        <button className="btn btn1-01 btn_sort" onClick={() => { this.toggle() }}>
+          API<SortIcon pr_asc={this.state.sortAsc} />
         </button>
       </div>
     );
@@ -74,9 +79,8 @@ class SortCategory extends React.Component {
   render() {
     return (
       <div>
-        <button className="btn btn1-01" onClick={() => { this.toggle() }}>
-          Sort Category {this.state.sortAsc ? 'Asc' : 'Desc'}
-          <SortIcon pr_asc={this.state.sortAsc} />
+        <button className="btn btn1-01 btn_sort" onClick={() => { this.toggle() }}>
+          Category<SortIcon pr_asc={this.state.sortAsc} />
         </button>
       </div>
     );

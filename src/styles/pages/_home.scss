@@ -306,3 +306,15 @@ hr {
 .authfilter_https--toggle {
   margin-top: 2px;
 }
+
+// sorter buttons
+// ==================================================/
+.btn_sort {
+
+  svg {
+    @extend %display--inline-block;
+    vertical-align: text-top;
+    width: 18px;
+    height: 18px;
+  }
+}
