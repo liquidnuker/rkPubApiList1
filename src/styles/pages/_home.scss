@@ -297,10 +297,13 @@ hr {
 
   input[type="text"],
   input[type="search"] {
-    @extend %padd--4;
+    padding: 4px 4px 4px 30px; /* trbl */
     height: 30px;
     border: 1px solid #000;
     background-color: #fff;
+
+    background: url('../img/material_design_icons/ic_search_24px.svg') no-repeat; 
+    background-size: auto;
 
     &:focus {
         border: 1px solid;
