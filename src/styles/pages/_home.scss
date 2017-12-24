@@ -222,6 +222,28 @@ hr {
     vertical-align: middle;
   }
 
+  .btn_prev,
+  .btn_next {
+    svg {
+      @extend %display--inline-block;
+      vertical-align: text-bottom;
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .btn_prev {
+    svg {
+      margin-left: -4px;
+    }
+  }
+
+  .btn_next {
+    svg {
+      margin-right: -4px;
+    }
+  }
+
   p {
     @extend %display--inline-block;
     vertical-align: middle;
