@@ -244,6 +244,15 @@ hr {
     }
   }
 
+  .pg_select,
+  .pg_perpage {
+    @extend %padd--4;
+    vertical-align: middle;
+    height: 30px;
+    border: 1px solid #000;
+    background-color: #fff;
+  }
+
   p {
     @extend %display--inline-block;
     vertical-align: middle;

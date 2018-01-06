@@ -74,12 +74,10 @@ export default class PageSelector extends React.Component {
       pr_prev={this.props.pr_prev} />
 
       <p>&nbsp;Page&nbsp;</p>
-      <div className="custom-select pg_totalpages">
-      <select value={this.props.pr_currentPage}
+      <select className="pg_perpage" value={this.props.pr_currentPage}
       onChange={this.handleChange} >
        {this.createOptions()}
       </select>
-      </div>
       <p>&nbsp;of&nbsp;{this.props.pr_totalPages}&nbsp;</p>
 
       <NextButton 
