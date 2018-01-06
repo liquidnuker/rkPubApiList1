@@ -49,7 +49,8 @@ export default class PageSelector extends React.Component {
     super(props);
     this.state = {
     };
-    // binders    
+    // binders  
+    this.handleChange = this.handleChange.bind(this);  
   }
   // hooks
   // methods
@@ -61,7 +62,10 @@ export default class PageSelector extends React.Component {
       }
      return items;
  }    
-  // methods
+ 
+ handleChange(event) {
+    this.props.pr_val_showPage(event.target.value);
+  } 
     
   render() {
     return (
@@ -71,7 +75,8 @@ export default class PageSelector extends React.Component {
 
       <p>&nbsp;Page&nbsp;</p>
       <div className="custom-select pg_totalpages">
-      <select value={this.props.pr_currentPage} >
+      <select value={this.props.pr_currentPage}
+      onChange={this.handleChange} >
        {this.createOptions()}
       </select>
       </div>

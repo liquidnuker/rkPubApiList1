@@ -61,7 +61,8 @@ export default class Rkpi extends React.Component {
 
     // lifecycle hooks
     componentDidMount() {
-      this.getApiData(this.BACKUP_URL);
+      this.getApiData(this.API_URL);
+      // this.getApiData(this.BACKUP_URL);
     }
 
     // methods
