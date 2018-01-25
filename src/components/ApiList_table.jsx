@@ -99,12 +99,7 @@ export default class ApiList_table extends React.Component {
 
   // lifecycle hooks  
   // methods
-  method1() {
-    this.setState(prevState => ({
-      property1: store.state
-    }));
-  }
-
+  
   render() {
     return (
       <table className="col-xs-12 apilist_table">
