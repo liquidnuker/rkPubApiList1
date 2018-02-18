@@ -18,7 +18,7 @@ export default class Rkpi extends React.Component {
     constructor(props) {
       super(props);
 
-      this.API_URL = "https://raw.githubusercontent.com/toddmotto/public-apis/master/json/entries.json";
+      this.API_URL = "https://raw.githubusercontent.com/liquidnuker/public-apis/json/json/entries.json";
       this.BACKUP_URL = "./entries_offline.json";
 
       this.state = {
