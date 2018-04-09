@@ -3,7 +3,7 @@ import {arr_filter} from "../js/arr_filter.js";
 import {arr_extractUnique} from "../js/arr_extractUnique.js";
 import {arr_sortValue} from "../js/arr_sortValue.js";
 import {search_fuse} from "../js/search_fuse.js";
-import Paginate from "../js/vendor/Paginate.js";
+import Pager from "../js/pager.js";
 import {store} from "../js/store.js";
 
 import ApiList_table from "./ApiList_table.jsx";
@@ -102,12 +102,15 @@ export default class Rkpi extends React.Component {
 
     activatePager(data) {
       this.pager = null;
-      this.pager = new Paginate(data, this.state.perPage);
+      this.pager = new Pager({
+        data: data,
+        perPage: this.state.perPage
+      });
 
       this.setState(prevState => ({
-        apiList: this.pager.page(0),
+        apiList: this.pager.page(1),
         currentPage: this.pager.currentPage,
-        totalPages: this.pager.totalPages,
+        totalPages: this.pager.getTotalPages(),
         pagerButtons: true
       }));
     }
@@ -258,15 +261,11 @@ export default class Rkpi extends React.Component {
     }
 
     prev() {
-      let apiList = this.state.apiList;
       let currentPage = this.state.currentPage;
-
-      if (this.pager.currentPage === 1) {
-        apiList = this.pager.page(this.pager.totalPages);
-      } else {
-        apiList = this.pager.prev();
-      }
-      currentPage = this.pager.currentPage;
+      let apiList = this.state.apiList;
+      
+      currentPage = this.pager.prev();
+      apiList = this.pager.page(currentPage);      
 
       this.setState(prevState => ({
         apiList: apiList,
@@ -275,15 +274,11 @@ export default class Rkpi extends React.Component {
     }
 
     next() {
-      let apiList = this.state.apiList;
       let currentPage = this.state.currentPage;
+      let apiList = this.state.apiList;      
 
-      if (!this.pager.hasNext()) {
-        apiList = this.pager.page(0);
-      } else {
-        apiList = this.pager.next();
-      }
-      currentPage = this.pager.currentPage;
+      currentPage = this.pager.next();
+      apiList = this.pager.page(currentPage); 
 
       this.setState(prevState => ({
         apiList: apiList,
