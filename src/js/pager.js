@@ -21,7 +21,9 @@ Pager.prototype = {
       this.currentPage = num;
 
       let start = this.getCurrentOffset();
-      let end = start + this.perPage;
+      // let end = start + this.perPage;
+      let end = (start + Number(this.perPage));
+
       return this.data.slice(start, end);
     } else {
       // default page

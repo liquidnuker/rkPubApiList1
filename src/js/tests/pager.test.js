@@ -34,12 +34,22 @@ test('page switcher should default on invalid page', () => {
   expect(pg.page(2)).not.toEqual(defaultPage);
 });
 
+test('page switcher/offset', () => {
+  expect(pg.page(1).length).toBeLessThanOrEqual(pg.perPage);
+  expect(999).not.toBeLessThanOrEqual(pg.perPage);
+
+  pg.perPage = 20;
+  expect(pg.page(1).length).toBeLessThanOrEqual(pg.perPage);
+  expect(999).not.toBeLessThanOrEqual(pg.perPage);
+});
+
 test('getCurrentOffset', () => {
   pg.currentPage = 1;
   expect(pg.getCurrentOffset()).toBe(0); 
 
   pg.currentPage = 2;
   expect(pg.getCurrentOffset()).not.toBe(0); 
+
 });
 
 test('hasPrev', () => {
