@@ -177,8 +177,7 @@ export default class Rkpi extends React.Component {
     }
 
     toggleHttps(checked) {
-      checked = !checked;
-      this.state.https = checked;
+      this.state.https = !checked;
       this.filterAuthType();
     }
 
