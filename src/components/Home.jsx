@@ -207,19 +207,16 @@ export default class Rkpi extends React.Component {
       this.filterAuthType();
     }
 
-    filterAuthType() {
-      let apiListFiltered = this.state.apiListFiltered;
-      // this.status.search = "";
-      let categoryTemp;
-
+    setCategoryTemp() {
       if (this.state.currentCategory !== "All") {
-        categoryTemp = arr_filter(this.state.apiListCache, "Category", this.state.currentCategory);
+        return arr_filter(this.state.apiListCache, "Category", this.state.currentCategory);
       } else {
         // to filter authTypes from default items
-        categoryTemp = this.state.apiListCache;
+        return this.state.apiListCache;
       }
+    }
 
-      // authType checkbox
+    setAuthTemp(categoryTemp) {
       let authTemp = [];
       this.state.authTypeSelected.map((i) => {
         // get items of each authTypeSelected
@@ -227,19 +224,28 @@ export default class Rkpi extends React.Component {
         authTemp = authTemp.concat(t2);
         t2 = null;
       });
+      return authTemp;
+    }
+
+    setHttpsCheckbox(authTemp) {
+      if (this.state.https) {
+        return arr_filter(authTemp, "HTTPS", this.state.https);
+      } else {
+        return authTemp;
+      }
+    }
+
+    filterAuthType() {
+      let apiListFiltered = this.state.apiListFiltered;
+      // this.status.search = "";
+      
+      let categoryTemp = this.setCategoryTemp();
+      
+      // authType checkbox
+      let authTemp = this.setAuthTemp(categoryTemp);
 
       // HTTPS checkbox
-      if (this.state.https) {
-        let hTemp = arr_filter(authTemp, "HTTPS", this.state.https);
-        apiListFiltered = hTemp;
-        hTemp = null;
-      } else {
-        apiListFiltered = authTemp;
-      }
-
-      if (authTemp.length === 0) {
-        console.log("no results");
-      }
+      apiListFiltered = this.setHttpsCheckbox(authTemp);      
 
       authTemp = null;
       categoryTemp = null;
@@ -252,9 +258,8 @@ export default class Rkpi extends React.Component {
     }
 
     showPage(num) {
-      let apiList = this.pager.page(num);
       this.setState(prevState => ({
-        apiList: apiList,
+        apiList: this.pager.page(num),
         currentPage: num
       }));
     }
