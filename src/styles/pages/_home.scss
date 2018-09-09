@@ -24,6 +24,12 @@ hr {
   margin: 4px 0 4px 0; /* trbl */
 }
 
+.site_title {
+  > div {
+    @extend %padd--4;
+  }
+}
+
 // apilist_categories nav
 // ==================================================/
 @mixin apilist_categories_theme() {

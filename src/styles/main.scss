@@ -18,6 +18,14 @@
 
 @import "pages/home";
 
+body, h1 {
+  font-size: 16px;
+}
+
+h1 {
+  margin: 0;
+}
+
 // show the active breakpoint (_mq.scss)
 // ==================================================/
 // @include mq-show-breakpoints;
